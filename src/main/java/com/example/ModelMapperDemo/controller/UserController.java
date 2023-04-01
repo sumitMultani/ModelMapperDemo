@@ -1,5 +1,6 @@
 package com.example.ModelMapperDemo.controller;
 
+import com.example.ModelMapperDemo.model.Employee;
 import com.example.ModelMapperDemo.model.UserRequest;
 import com.example.ModelMapperDemo.model.UserResponse;
 import com.example.ModelMapperDemo.service.UserService;
@@ -17,5 +18,10 @@ public class UserController {
     @PostMapping("/user")
     public UserResponse saveUser(@RequestBody UserRequest request){
         return userService.saveUser(request);
+    }
+
+    @PostMapping("/employee")
+    public Employee getEmployeeResponse(@RequestBody UserRequest request){
+        return userService.getEmployeeResponse(request);
     }
 }
