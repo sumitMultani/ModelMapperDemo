@@ -4,10 +4,13 @@ import com.example.ModelMapperDemo.entity.UserEntity;
 import com.example.ModelMapperDemo.model.UserRequest;
 import com.example.ModelMapperDemo.model.UserResponse;
 import com.example.ModelMapperDemo.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public UserResponse saveUser(UserRequest request) {
@@ -18,19 +21,11 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserEntity convertUserRequestToUserEntity(UserRequest userRequest){
-        UserEntity userEntity = new UserEntity();
-        userEntity.setAge(userRequest.getAge());
-        userEntity.setId(userRequest.getId());
-        userEntity.setName(userRequest.getName());
-        return userEntity;
+        return modelMapper.map(userRequest, UserEntity.class);
     }
 
     public UserResponse convertUserEntityToUserResponse(UserEntity userEntity){
-        UserResponse userResponse = new UserResponse();
-        userResponse.setAge(userEntity.getAge());
-        userResponse.setId(userEntity.getId());
-        userResponse.setName(userEntity.getName());
-        return userResponse;
+        return modelMapper.map(userEntity, UserResponse.class);
     }
 
     private UserEntity save(UserEntity userEntity) {
